@@ -17,6 +17,5 @@ class AddMfa:
         page.locator(later_btn).click()
 
     def click_gotodash_button(self, page):
-        dashb_btn = self.locators['goto_dash']['value']
-        page.locator(dashb_btn).click()
-        # page.keyboard.press('Escape')
+        dash_btn = self.locators['goto_dash']['value']
+        page.locator(dash_btn).click()

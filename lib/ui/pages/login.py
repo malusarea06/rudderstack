@@ -21,7 +21,7 @@ class Login:
         """
         try:
             input_loc = self.locators['user_name']['value']
-            user_inp = page.get_by_test_id(input_loc).fill(user_name)
+            page.get_by_test_id(input_loc).fill(user_name)
 
         except Exception as e:
             print("Failed to enter user name : ", e)
@@ -35,7 +35,7 @@ class Login:
         """
         try:
             input_loc = self.locators['password']['value']
-            user_inp = page.get_by_test_id(input_loc).fill(user_name)
+            page.get_by_test_id(input_loc).fill(user_name)
         except Exception as e:
             print("Failed to enter password : ", e)
 
@@ -47,6 +47,6 @@ class Login:
         """
         try:
             login_btn = self.locators['login_btn']['value']
-            login_act = page.locator(login_btn).click()
+            page.locator(login_btn).click()
         except Exception as e:
             print("Failed to click login button")
