@@ -25,8 +25,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name: Install XVBF for headed mode
-        run: sudo apt install xvfb
+      - name: Install XVBF and xclip
+        run: |
+              sudo apt install xvfb
+              sudo apt-get install xclip
 
       # Runs a single command using the runners shell
       - name: Install Python
