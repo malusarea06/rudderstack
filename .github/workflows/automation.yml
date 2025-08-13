@@ -25,10 +25,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name: Install XVBF and xclip
-        run: |
-              sudo apt install xvfb
-              sudo apt-get install xclip
+      - name: Install XVBF for headed mode
+        run: sudo apt install xvfb
 
       # Runs a single command using the runners shell
       - name: Install Python
@@ -54,3 +52,9 @@ jobs:
 
       - name: Run automation script
         run:  xvfb-run python -m pytest bdd_scenarios/ui_automation/step_definations/test_scenario_one.py --env=qa --html=report.html --self-contained-html
+
+      - name: Archive tests results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: report.html
