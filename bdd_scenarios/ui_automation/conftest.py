@@ -31,8 +31,8 @@ def get_env_details(env):
 @pytest.fixture(scope="module")
 def req(request):
     env = request.config.getoption('--env').lower()
+    request.browsr = request.config.getoption('--browser_op').lower()
     request.env_details = get_env_details(env)
-    request.browser = "chromium"
     request.login_page = Login()
     request.homepage = Homepage()
     request.add_mfa = AddMfa()
@@ -46,11 +46,13 @@ def req(request):
 @pytest.fixture(scope="module")
 def page(req):
     playwright = sync_playwright().start()
-    if req.browser == 'chromium':
+    if req.browsr == 'chromium':
         browser = playwright.chromium
+    if req.browsr == 'firefox':
+        browser = playwright.firefox
     browser_ctx = browser.launch(headless=False, args=['--start-maximized'],
                                  slow_mo=1200)
-    browser_ctx = browser_ctx.new_context(no_viewport=True)
+    browser_ctx = browser_ctx.new_context()
     page = browser_ctx.new_page()
     yield page
     browser_ctx.close()

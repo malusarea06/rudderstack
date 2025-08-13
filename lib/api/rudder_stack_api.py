@@ -38,4 +38,4 @@ class RudderStackAPI:
             api_response = self.crud.send(url=url, auth=auth, data=json.dumps(payload), headers=headers, method=method)
             return api_response
         except Exception as e:
-            print("Failed to send identify event : ", e)
+            print("Raised exception while send identify event : ", e)

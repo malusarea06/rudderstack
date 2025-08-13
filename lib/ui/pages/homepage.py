@@ -46,7 +46,7 @@ class Homepage:
             collections_locator = self.locators['menu_sidebar']['collect_connections']['value']
             page.get_by_test_id(collections_locator).click()
         except Exception as e:
-            print("Failed to click collections tab")
+            print("Raised exception while click collections tab")
 
     def click_destinations_tab(self, page):
         """
@@ -58,4 +58,4 @@ class Homepage:
             destinations_locator = self.locators['menu_sidebar']['collect_destinations']['value']
             page.get_by_test_id(destinations_locator).click()
         except Exception as e:
-            print("Failed to click destinations tab")
+            print("Raised exception while click destinations tab")
