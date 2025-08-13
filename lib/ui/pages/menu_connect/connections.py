@@ -22,8 +22,7 @@ class Connections:
         """
         try:
             locator = self.locators['data_plane']['value']
-            page.locator(locator).click()
-            data_plane_url = pyperclip.paste()
+            data_plane_url = page.locator(locator).text_content()
             return data_plane_url
         except Exception as e:
             print("Error while fetching the data plane url : ", e)
@@ -36,8 +35,8 @@ class Connections:
         """
         try:
             locator = self.locators['source_write_key']['value']
-            page.locator(locator).click()
-            write_key = pyperclip.paste()
+            write_key = page.locator(locator).text_content()
+            write_key = write_key.split(" ")[-1]
             return write_key
         except Exception as e:
             print('Failed to return source write key : ', e)

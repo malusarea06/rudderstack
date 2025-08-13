@@ -50,7 +50,7 @@ def page(req):
         browser = playwright.chromium
     if req.browsr == 'firefox':
         browser = playwright.firefox
-    browser_ctx = browser.launch(headless=True, args=['--start-maximized'],
+    browser_ctx = browser.launch(headless=False, args=['--start-maximized'],
                                  slow_mo=1200)
     browser_ctx = browser_ctx.new_context(no_viewport=True)
     page = browser_ctx.new_page()
