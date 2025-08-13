@@ -25,6 +25,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Install XVBF for headed mode
+        run: sudo apt install xvfb
+
       # Runs a single command using the runners shell
       - name: Install Python
         uses: actions/setup-python@v5
@@ -40,4 +43,4 @@ jobs:
         run: playwright install --with-deps
 
       - name: Run automation script
-        run:  python -m pytest bdd_scenarios/ui_automation/step_definations/test_scenario_one.py --env=qa --html=report.html --self-contained-html
+        run:  xvbf-run python -m pytest bdd_scenarios/ui_automation/step_definations/test_scenario_one.py --env=qa --html=report.html --self-contained-html
