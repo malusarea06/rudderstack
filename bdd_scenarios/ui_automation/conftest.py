@@ -14,7 +14,7 @@ from lib.ui.pages.add_mfa import AddMfa
 from lib.ui.pages.menu_connect.connections import Connections
 from lib.ui.pages.menu_connect.destinations import Destinations
 from lib.api.rudder_stack_api import RudderStackAPI
-from utils import Utils
+from utils.utils import Utils
 
 
 def get_env_details(env):
@@ -51,7 +51,7 @@ def page(req):
     if req.browsr == 'firefox':
         browser = playwright.firefox
     browser_ctx = browser.launch(headless=False, args=['--start-maximized'],
-                                 slow_mo=1200)
+                                 slow_mo=1100)
     browser_ctx = browser_ctx.new_context(no_viewport=True)
     page = browser_ctx.new_page()
     yield page

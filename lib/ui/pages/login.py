@@ -1,16 +1,19 @@
 import sys
+import traceback
 from pathlib import Path
 
 IMPORT_PATH = Path("").absolute()
 sys.path.append(str(IMPORT_PATH))
 
-from utils import Utils
+from utils.utils import Utils
+import utils.debug_logger as debug
 
 selector_conf = "login.conf"
 
 class Login:
     def __init__(self):
         self.locators = Utils().read_conf(selector_conf, "pages_conf")
+        self.debug = debug.set_debug_log(self.__class__.__name__)
 
     def enter_username(self, page, user_name):
         """
@@ -22,9 +25,9 @@ class Login:
         try:
             input_loc = self.locators['user_name']['value']
             page.get_by_test_id(input_loc).fill(user_name)
-
-        except Exception as e:
-            print("Raised exception while enter user name : ", e)
+        except Exception as error:
+            print("Raised exception while enter user name : ", error)
+            self.debug.critical(f"Exception in {debug.get_method_name()} : {traceback.format_exc()} - {error}")
 
     def enter_password(self, page, user_name):
         """
@@ -36,8 +39,9 @@ class Login:
         try:
             input_loc = self.locators['password']['value']
             page.get_by_test_id(input_loc).fill(user_name)
-        except Exception as e:
-            print("Raised exception while enter password : ", e)
+        except Exception as error:
+            print("Raised exception while enter password : ", error)
+            self.debug.critical(f"Exception in {debug.get_method_name()} : {traceback.format_exc()} - {error}")
 
     def click_login(self, page):
         """
@@ -48,5 +52,6 @@ class Login:
         try:
             login_btn = self.locators['login_btn']['value']
             page.locator(login_btn).click()
-        except Exception as e:
+        except Exception as error:
             print("Raised exception while click login button")
+            self.debug.critical(f"Exception in {debug.get_method_name()} : {traceback.format_exc()} - {error}")

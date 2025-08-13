@@ -1,10 +1,12 @@
 import sys
+import traceback
 from pathlib import Path
 
 IMPORT_PATH = Path("").absolute()
 sys.path.append(str(IMPORT_PATH))
 
-from utils import Utils
+from utils.utils import Utils
+import utils.debug_logger as debug
 
 LOCATOR_FILE = "destinations.conf"
 PATH_TO_LOCATOR = "pages_conf/menu_connect"
@@ -12,6 +14,7 @@ PATH_TO_LOCATOR = "pages_conf/menu_connect"
 class Destinations:
     def __init__(self):
         self.locators = Utils().read_conf(LOCATOR_FILE, PATH_TO_LOCATOR)
+        self.debug = debug.set_debug_log(self.__class__.__name__)
 
 
     def click_destinations_webhook(self, page, destination_webhook):
@@ -22,8 +25,9 @@ class Destinations:
         try:
             dest_locator = self.locators['destination_webhook']['value'].replace('webhook', destination_webhook)
             page.locator(dest_locator).click()
-        except Exception as e:
-            print("Error while selecting destination webhook : ", e)
+        except Exception as error:
+            print("Error while selecting destination webhook : ", error)
+            self.debug.critical(f"Exception in {debug.get_method_name()} : {traceback.format_exc()} - {error}")
 
     def click_events_tab(self, page):
         """
@@ -34,8 +38,9 @@ class Destinations:
         try:
             event_loc = self.locators['events_tab']['value']
             page.locator(event_loc).click()
-        except Exception as e:
+        except Exception as error:
             print("Error while clicking on events tab")
+            self.debug.critical(f"Exception in {debug.get_method_name()} : {traceback.format_exc()} - {error}")
 
     def get_delivered_events(self, page):
         """
@@ -49,8 +54,9 @@ class Destinations:
             if delivered_events:
                 return delivered_events
             return None
-        except Exception as e:
+        except Exception as error:
             print('Failed to fetch the delivered count')
+            self.debug.critical(f"Exception in {debug.get_method_name()} : {traceback.format_exc()} - {error}")
 
     def get_failed_events(self, page):
         """
@@ -64,5 +70,6 @@ class Destinations:
             if failed_events:
                 return failed_events
             return None
-        except Exception as e:
+        except Exception as error:
             print('Failed to fetch the failed count')
+            self.debug.critical(f"Exception in {debug.get_method_name()} : {traceback.format_exc()} - {error}")
