@@ -11,7 +11,7 @@ scenarios("../feature_files/scenario_one.feature")
 DATA_STORE = {}
 
 @given(parsers.parse("User should be on login page"))
-def test_login_page(req, page):
+def open_login_page(req, page):
     login_url = req.env_details['login_url']
     page.goto(login_url)
 

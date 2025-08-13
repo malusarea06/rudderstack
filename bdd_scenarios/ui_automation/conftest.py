@@ -52,7 +52,7 @@ def page(req):
         browser = playwright.firefox
     browser_ctx = browser.launch(headless=False, args=['--start-maximized'],
                                  slow_mo=1200)
-    browser_ctx = browser_ctx.new_context()
+    browser_ctx = browser_ctx.new_context(no_viewport=True)
     page = browser_ctx.new_page()
     yield page
     browser_ctx.close()
