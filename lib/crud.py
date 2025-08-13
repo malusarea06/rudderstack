@@ -1,16 +1,20 @@
 import json
 import sys
+import traceback
 from pathlib import Path
 import requests
 
 IMPORT_PATH = Path("").absolute()
 sys.path.append(str(IMPORT_PATH))
 
+import utils.debug_logger as debug
 
 class CRUD:
     """
     __Summary__: Class to handle all crud operation i.e create / request / update / delete API calls
     """
+    def __init__(self):
+        self.debug = debug.set_debug_log(self.__class__.__name__)
 
     def send(self, **kwargs):
         """
@@ -34,6 +38,7 @@ class CRUD:
             if method.upper() == 'POST':
                 return requests.post(url, data=data, params=params, verify=False, cookies=None,
                                      headers=headers, auth=auth)
-        except requests.exceptions.RequestException as errex:
-            print("Exception occured while executing http call : ", errex)
+        except requests.exceptions.RequestException as error:
+            print("Exception occured while executing http call : ", error)
+            self.debug.critical(f"Exception in {debug.get_method_name()} : {traceback.format_exc()} - {error}")
 
