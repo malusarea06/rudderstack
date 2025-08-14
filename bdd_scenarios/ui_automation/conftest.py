@@ -22,9 +22,7 @@ def get_env_details(env):
     env = env.upper()
     env_config = {
         'base_url': os.getenv(f"{env}_BASE_URL"),
-        'login_url': os.getenv(f"{env}_LOGIN_URL"),
-        'username': os.getenv(f"{env}_USER_EMAIL"),
-        'password': os.getenv(f"{env}_USER_PASSWORD")
+        'login_url': os.getenv(f"{env}_LOGIN_URL")
     }
     return env_config
 
